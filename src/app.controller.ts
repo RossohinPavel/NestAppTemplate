@@ -1,3 +1,4 @@
+import { TypedRoute } from "@nestia/core";
 import { AppService } from "./app.service";
 import { Controller, Get } from "@nestjs/common";
 
@@ -7,7 +8,7 @@ export class AppController {
 
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @TypedRoute.Get()
   getHello(): string {
     return this.appService.getHello();
   }
