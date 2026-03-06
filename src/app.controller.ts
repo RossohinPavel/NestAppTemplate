@@ -13,9 +13,9 @@ export class AppController {
    * @summary Пингуем сервис.
    * @returns pong
    */
-  @TypedRoute.Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @TypedRoute.Get('/ping')
+  getPing(): string {
+    return this.appService.getPing();
   }
 
 }
