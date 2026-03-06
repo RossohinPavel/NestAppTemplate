@@ -10,3 +10,5 @@ services:
       - "${BACKEND_PORT}:3000"
     build:
       context: .
+    env_file:
+      - './env'
