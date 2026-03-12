@@ -12,8 +12,8 @@ ENV PNPM_CONFIG_DANGEROUSLY_ALLOW_ALL_BUILDS=true
 RUN pnpm install --frozen-lockfile --ignore-scripts=false
 
 COPY src/ src/
-RUN pnpm run build
 RUN pnpm run prepare
+RUN pnpm run build
 
 # Разделяем сборку и использование ради уменьшения объема образа
 FROM node:24.14.0-alpine AS production
