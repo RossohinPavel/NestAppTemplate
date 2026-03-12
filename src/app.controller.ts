@@ -7,7 +7,7 @@ import { ApiTags } from "@nestjs/swagger";
 @Controller()
 export class AppController {
 
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly service: AppService) {}
 
   /**
    * @summary Пингуем сервис.
@@ -15,7 +15,7 @@ export class AppController {
    */
   @TypedRoute.Get('/ping')
   getPing(): string {
-    return this.appService.getPing();
+    return this.service.getPing();
   }
 
 }
