@@ -1,15 +1,17 @@
 FROM node:24.14.0-alpine AS builder
 
-RUN npm i -g pnpm
+RUN corepack enable
 
 WORKDIR /app
-COPY nest-cli.json .
+
 COPY package.json .
 COPY pnpm*.yaml .
+
+COPY nest-cli.json .
 COPY tsconfig*.json .
 
-ENV PNPM_CONFIG_DANGEROUSLY_ALLOW_ALL_BUILDS=true
-RUN pnpm install --frozen-lockfile --ignore-scripts=false
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile --ignore-scripts=false --store-dir /root/.local/share/pnpm/store
 
 COPY src/ src/
 RUN pnpm run prepare
@@ -18,13 +20,14 @@ RUN pnpm run build
 # Разделяем сборку и использование ради уменьшения объема образа
 FROM node:24.14.0-alpine AS production
 
-RUN npm i -g pnpm
+RUN corepack enable
 
 WORKDIR /app
+
 COPY package.json pnpm-lock.yaml ./
 
-ENV PNPM_CONFIG_DANGEROUSLY_ALLOW_ALL_BUILDS=true
-RUN pnpm install --prod --frozen-lockfile --ignore-scripts=false
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
+    pnpm install --prod --frozen-lockfile --ignore-scripts=false --store-dir /root/.local/share/pnpm/store
 
 COPY --from=builder /app/dist ./dist
 

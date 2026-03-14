@@ -1,7 +1,3 @@
-x-app_environment: &app_environment
-  environment:
-    # Common
-    BACKEND_PORT: ${BACKEND_PORT}
 
 services:
   app:

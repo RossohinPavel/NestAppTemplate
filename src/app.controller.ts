@@ -2,6 +2,7 @@ import { TypedRoute } from "@nestia/core";
 import { AppService } from "./app.service";
 import { Controller, Get } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { ConfigService } from "@nestjs/config";
 
 @ApiTags('App')
 @Controller()
