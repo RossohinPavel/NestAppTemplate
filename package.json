@@ -5,6 +5,7 @@
   "author": "dfx_17",
   "private": true,
   "license": "MIT",
+  "packageManager": "pnpm@10.32.1",
   "scripts": {
     "build": "nest build",
     "start": "nest start",
@@ -26,13 +27,14 @@
     "@nestia/fetcher": "^10.0.2",
     "@nestia/sdk": "^10.0.2",
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-fastify": "^11.1.14",
     "@nestjs/swagger": "^11.2.6",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "typia": "^11.0.3",
-    "ts-patch": "^3.3.0"
+    "ts-patch": "^3.3.0",
+    "typia": "^11.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
