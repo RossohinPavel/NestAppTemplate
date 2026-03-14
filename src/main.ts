@@ -1,5 +1,5 @@
-import { INestiaConfig, NestiaSwaggerComposer } from "@nestia/sdk";
 import { AppModule } from "./app.module";
+import { INestiaConfig, NestiaSwaggerComposer } from "@nestia/sdk";
 import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
@@ -22,9 +22,9 @@ async function bootstrap() {
     info: {
       title: "NestAppTemplate",
       summary: "Шаблон для публичных апи на базе Nestjs",
-      },
-    servers: [{url: "http://localhost:3000", description: "NestAppTemplate"}]
-    }
+    },
+    servers: [{ url: "http://localhost:3000", description: "NestAppTemplate" }],
+  };
   
   const document = await NestiaSwaggerComposer.document(app, config);
   SwaggerModule.setup("docs", app, document as OpenAPIObject);

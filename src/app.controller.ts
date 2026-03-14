@@ -1,10 +1,10 @@
-import { TypedRoute } from "@nestia/core";
 import { AppService } from "./app.service";
-import { Controller, Get } from "@nestjs/common";
+import { TypedRoute } from "@nestia/core";
+import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { ConfigService } from "@nestjs/config";
 
-@ApiTags('App')
+
+@ApiTags("App")
 @Controller()
 export class AppController {
 
@@ -14,7 +14,7 @@ export class AppController {
    * @summary Пингуем сервис.
    * @returns pong
    */
-  @TypedRoute.Get('/ping')
+  @TypedRoute.Get("/ping")
   getPing(): string {
     return this.service.getPing();
   }
