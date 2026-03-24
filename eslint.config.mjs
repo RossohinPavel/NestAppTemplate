@@ -8,9 +8,7 @@ import importPlugin from "eslint-plugin-import";
 import unusedImports from "eslint-plugin-unused-imports";
 
 export default defineConfig([
-  {
-    ignores: ['eslint.config.mjs', 'dist/', 'node_modules/'],
-  },
+  { ignores: ['eslint.config.mjs', 'dist/', 'node_modules/'], },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
