@@ -1,10 +1,10 @@
 import { AppModule } from "./app.module";
+import cors from "@fastify/cors";
 import { INestiaConfig, NestiaSwaggerComposer } from "@nestia/sdk";
 import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 import { OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
-import cors from "@fastify/cors";
 
 
 async function bootstrap() {
@@ -13,6 +13,7 @@ async function bootstrap() {
   // Logging
   const logger = new Logger("HTTP");
   const fastifyInstance = app.getHttpAdapter().getInstance();
+  
   fastifyInstance.addHook("onResponse", (req, res, done) => {
     logger.log(`${req.ip} "${req.method} ${req.url}" ${res.statusCode}`);
     done();
