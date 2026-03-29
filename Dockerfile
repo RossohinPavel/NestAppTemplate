@@ -8,7 +8,7 @@ ARG PNPM_CACHE_DIR
 RUN corepack enable
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm*.yaml ./
 COPY nest-cli.json tsconfig*.json ./
 
 RUN --mount=type=cache,id=pnpm,target=${PNPM_CACHE_DIR} \
@@ -26,7 +26,7 @@ ARG PNPM_CACHE_DIR
 RUN corepack enable
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm*.yaml ./
 
 RUN --mount=type=cache,id=pnpm,target=${PNPM_CACHE_DIR} \
     pnpm install --prod --frozen-lockfile --ignore-scripts --store-dir ${PNPM_CACHE_DIR}
