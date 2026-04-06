@@ -2,8 +2,8 @@ import typia, { tags } from "typia";
 
 
 export type ConfigType = Readonly<{
-  backendPort: number
   someSecret: string & tags.MinLength<1>
+  loggerServiceUrl: string | undefined
 }>;
 
 /**
@@ -11,8 +11,8 @@ export type ConfigType = Readonly<{
  */
 export const getConfig = () => {
   const config: ConfigType = {
-    backendPort: Number(process.env.BACKEND_PORT) || 0,
     someSecret: process.env.SOME_SECRET!,
+    loggerServiceUrl: process.env.LOGGER_SERVICE_URL,
   };
   return typia.assert<ConfigType>(config);
 };

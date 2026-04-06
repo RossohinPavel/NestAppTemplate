@@ -1,7 +1,7 @@
 import { AppModule } from "./app.module";
+import { MyLogger } from "./logger";
 import cors from "@fastify/cors";
 import { INestiaConfig, NestiaSwaggerComposer } from "@nestia/sdk";
-import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 import { OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
@@ -11,11 +11,11 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
   // Logging
-  const logger = new Logger("HTTP");
+  const logger = new MyLogger("HTTP");
   const fastifyInstance = app.getHttpAdapter().getInstance();
   
   fastifyInstance.addHook("onResponse", (req, res, done) => {
-    logger.log(`${req.ip} "${req.method} ${req.url}" ${res.statusCode}`);
+    logger.onResponse(`${req.ip} "${req.method} ${req.url}" ${res.statusCode}`);
     done();
   });
 
