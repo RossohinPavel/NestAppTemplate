@@ -13,13 +13,20 @@ export class MyLogger extends Logger {
     reset: "\x1b[0m",   // Сброс цвета
   } as const;
 
-  private static LOG_SERVICE_URL = process.env.LOGGER_SERVICE_URL;
+  private static LOGGER_SERVICE_URL: string | null = null;
 
   public quietHttp: boolean;
 
   constructor(context: string, options?: { quietHttp?: boolean, timestamp?: boolean }) {
     super(context, options);
     this.quietHttp = options?.quietHttp || true;
+    if ( !MyLogger.LOGGER_SERVICE_URL ) {
+      const url = process.env.LOGGER_SERVICE_URL;
+      if ( url ) {
+        super.log(`Logs will be sent to: ${url}`);
+        MyLogger.LOGGER_SERVICE_URL = url;
+      }
+    }
   }
 
   /**
@@ -37,7 +44,7 @@ export class MyLogger extends Logger {
       }
       const toSend = { type: level, context: this.context, content };
       const body = JSON.stringify(toSend);
-      const response = await fetch(MyLogger.LOG_SERVICE_URL!, { 
+      const response = await fetch(MyLogger.LOGGER_SERVICE_URL!, { 
         method: "POST", 
         body, 
         signal: AbortSignal.timeout(3000),
@@ -64,7 +71,7 @@ export class MyLogger extends Logger {
     if (rest !== undefined && rest.length === 1) {
       content = rest[0];
     }
-    if (MyLogger.LOG_SERVICE_URL !== undefined) {
+    if (MyLogger.LOGGER_SERVICE_URL !== undefined) {
       void this.sendLog(level, message, content);
     }
     const now = (new Date()).toISOString();
